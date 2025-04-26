@@ -1,0 +1,45 @@
+image: openjdk:15-jdk-slim
+
+stages:
+  - build
+  - test
+
+variables:
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+  MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version"
+
+cache:
+  paths:
+    - .m2/repository
+
+before_script:
+  - apt-get update
+  - apt-get install -y wget gnupg2 curl unzip
+  - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+  - echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
+  - apt-get update
+  - apt-get install -y google-chrome-stable
+  - apt-get install -y xvfb
+  - Xvfb :99 -screen 0 1920x1080x24 > /dev/null 2>&1 &
+  - export DISPLAY=:99
+  - apt-get install -y maven
+
+build:
+  stage: build
+  script:
+    - mvn $MAVEN_CLI_OPTS clean compile
+
+test:
+  stage: test
+  script:
+    - mvn $MAVEN_CLI_OPTS clean test
+  artifacts:
+    when: always
+    reports:
+      junit:
+        - target/surefire-reports/TEST-*.xml
+    paths:
+      - target/extent-reports/
+      - target/screenshots/
+      - target/surefire-reports/
+    expire_in: 1 week

@@ -1,0 +1,8 @@
+version: '3'
+services:
+  test:
+    build: .
+    volumes:
+      - ./target:/app/target
+    environment:
+      - DISPLAY=:99
