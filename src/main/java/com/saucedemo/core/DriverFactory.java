@@ -40,11 +40,13 @@ public class DriverFactory {
             case "firefox":
                 logger.info("Initializing Firefox driver");
                 FirefoxOptions firefoxOptions = new FirefoxOptions();
+                firefoxOptions.addArguments("--headless=new");
                 driver = new FirefoxDriver(firefoxOptions);
                 break;
             case "edge":
                 logger.info("Initializing Edge driver");
                 EdgeOptions edgeOptions = new EdgeOptions();
+                edgeOptions.addArguments("--headless=new");
                 driver = new EdgeDriver(edgeOptions);
                 break;
             case "safari":
@@ -56,6 +58,7 @@ public class DriverFactory {
             default:
                 logger.info("Initializing Chrome driver");
                 ChromeOptions chromeOptions = new ChromeOptions();
+                chromeOptions.addArguments("--headless=new");
                 driver = new ChromeDriver(chromeOptions);
                 break;
         }
