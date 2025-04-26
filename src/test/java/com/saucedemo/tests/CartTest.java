@@ -20,7 +20,7 @@ public class CartTest extends BaseTest {
     @BeforeMethod
     public void setupTest() {
         LoginPage loginPage = new LoginPage(driver);
-        productsPage = loginPage.login("standard_user", "secret_sauce");
+        productsPage = loginPage.login("visual_user", "secret_sauce");
         Assert.assertTrue(productsPage.isOnProductsPage(), "Failed to navigate to products page");
     }
 

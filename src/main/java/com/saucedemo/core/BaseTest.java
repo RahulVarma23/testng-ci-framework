@@ -35,6 +35,7 @@ public abstract class BaseTest {
     @Parameters({"browser"})
     @BeforeMethod
     public void setUp(@Optional("chrome") String browserType) {
+        config = new ConfigReader();
         logger.info("Setting up WebDriver for browser: {}", browserType);
         driver = DriverFactory.getDriver(browserType);
         driver.get(config.getProperty("base.url"));

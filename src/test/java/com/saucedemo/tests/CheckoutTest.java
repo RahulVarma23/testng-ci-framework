@@ -21,7 +21,7 @@ public class CheckoutTest extends BaseTest {
     @BeforeMethod
     public void setupTest() {
         LoginPage loginPage = new LoginPage(driver);
-        ProductsPage productsPage = loginPage.login("standard_user", "secret_sauce");
+        ProductsPage productsPage = loginPage.login("visual_user", "secret_sauce");
         
         // Add a product to the cart
         productsPage.addProductToCart("Sauce Labs Backpack");

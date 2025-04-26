@@ -18,7 +18,7 @@ public class LoginTest extends BaseTest {
     public void testValidLogin() {
         logger.info("Starting test: testValidLogin");
         LoginPage loginPage = new LoginPage(driver);
-        ProductsPage productsPage = loginPage.login("standard_user", "secret_sauce");
+        ProductsPage productsPage = loginPage.login("visual_user", "secret_sauce");
         
         Assert.assertTrue(productsPage.isOnProductsPage(), "Failed to login with valid credentials");
         Assert.assertEquals(productsPage.getPageTitleText(), "Products", "Page title does not match expected");
